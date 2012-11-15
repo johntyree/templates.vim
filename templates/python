@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+# coding: utf8
+"""<+Module Description.+>"""
+
+# import sys
+# import os
+# import itertools as it
+
+
+<++>
+
+
+def main():
+    """Run main."""
+
+    return 0
+
+if __name__ == '__main__':
+    main()

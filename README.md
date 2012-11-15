@@ -1,3 +1,5 @@
+This fork is just to get around the problem of the original repo being packaged as a vim archive that gets exploded on first run and ruins Vundle. I have done nothing here but unpacked the plugin and stuck a few useful default templates in. Ping me if it's out of date, but the script hasn't been updated since 2005...
+
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=1172
 
 templates.vim lets you use filetype-dependent templates for new files, using a simple but effective mechanism.

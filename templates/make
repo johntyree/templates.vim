@@ -1,0 +1,56 @@
+TARGET  = main
+SRC_DIR = .
+OBJ_DIR = obj
+
+CC        = g++
+NCXXFLAGS  = -c -fopenmp -O0 -Iinclude -g -Wextra -Wall
+# NCXXFLAGS = -c -fopenmp -O3 -march=native -fomit-frame-pointer -ffast-math -Iinclude -Wextra -Wall
+CXXFLAGS  = $(NCXXFLAGS) -std=c++0x -pedantic
+# "-Wextra -Wall -march=native -fomit-frame-pointer"
+
+NVCC   = nvcc
+NFLAGS = -c -O0 -g -G -Iinclude -arch=$(NVCC_ARCH) --ptxas-options=-v --compiler-options="$(NCXXFLAGS)"
+# NFLAGS = -c -O3 -use_fast_math -Iinclude -arch=$(NVCC_ARCH) --ptxas-options=-v --compiler-options="$(NCXXFLAGS)"
+
+LINKER   = g++
+CULINKER = nvcc
+LDFLAGS  = -lm -lgomp $(shell pkg-config --libs gsl)
+
+CPP_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+CU_FILES  = $(wildcard $(SRC_DIR)/*.cu)
+
+H_FILES   = $(wildcard $(SRC_DIR)/include/*.hpp)
+CUH_FILES = $(wildcard $(SRC_DIR)/include/*.cuh)
+
+OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(notdir $(CPP_FILES:.cpp=.o)))
+CUO_FILES = $(addprefix $(OBJ_DIR)/,$(notdir $(CU_FILES:.cu=.cu.o)))
+
+OBJS  = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(CPP_FILES)))
+OBJS += $(patsubst %.cu,$(OBJ_DIR)/%.cu.o,$(notdir $(CU_FILES)))
+
+all : $(TARGET)
+
+cpu : $(OBJ_DIR) $(H_FILES) $(OBJ_DIR)
+	$(CC) -c $(CXXFLAGS) $(CPP_FILES)
+	mv *.o obj
+	$(LINKER) -o $(TARGET) $(OBJ_FILES) $(LDFLAGS)
+
+main : $(OBJS)
+	$(LINKER) -o $@ $+ $(LDFLAGS)
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(H_FILES) $(OBJ_DIR)
+	$(CC) $(CXXFLAGS) -o $@ $<
+
+
+# CUDA SPECIFIC TARGETS
+$(OBJ_DIR) :
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.cu.o : $(SRC_DIR)/%.cu $(CUH_FILES) $(OBJ_DIR)
+	$(NVCC) $(NFLAGS) -o $@ $<
+# END CUDA SPECIFIC TARGETS
+
+clean :
+	rm -rf $(OBJ_DIR) $(TARGET) include/*.gch cpu gsl gpu
+
+.PHONY : all clean
