@@ -1,7 +1,7 @@
 templates.vim
 ====
 
-This fork is just to get around the problem of the original repo being packaged as a vim archive that gets exploded on first run and ruins Vundle. I have done nothing here but unpacked the plugin and stuck a few useful default templates in. Ping me if it's out of date, but the script hasn't been updated since 2005...
+_This fork is just to get around the problem of the original repo being packaged as a vim archive that gets exploded on first run and ruins Vundle. I have done nothing here but unpacked the plugin and stuck a few useful default templates in. Ping me if it's out of date, but the script hasn't been updated since 2005..._
 
 -----
 
