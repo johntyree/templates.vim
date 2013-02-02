@@ -1,14 +1,13 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title><+TITLE+></title>
-
 <!--
-<link rel="stylesheet" type="text/css" href="<+CSS_SRC+>" />
-<script type="text/javascript" src="<+JS_SRC+>"></script>
-<style type="text/css">
-</style>
+    <link rel="stylesheet" type="text/css" href="<+CSS_SRC+>" />
+    <script type="text/javascript" src="<+JS_SRC+>"></script>
+    <style type="text/css">
+    </style>
 -->
-
 </head>
 <body>
     <+BODY+>
