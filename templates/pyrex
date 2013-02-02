@@ -1,8 +1,15 @@
 # coding: utf8
-"""Description."""
+"""<+Description.+>"""
 
-# import sys
-# import os
-# import itertools as it
+from __future__ import division
 
-# cursor: 8 del
+import sys
+import os
+import itertools as it
+
+import numpy as np
+cimport numpy as np
+
+cimport cython
+
+<++>
